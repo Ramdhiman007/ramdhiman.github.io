@@ -520,6 +520,8 @@ textarea:focus {
 
   /* Mobile Nav Overlay */
   .nav {
+    display: none;
+    /* Hide completely by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -527,17 +529,22 @@ textarea:focus {
     height: 100vh;
     background: var(--bg-surface);
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    /* Start from top */
     align-items: center;
     gap: 1.5rem;
-    padding: 2rem;
-    transform: translateY(-100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 6rem 2rem 2rem;
+    /* Add top padding to clear toggle */
+    transform: translateY(0);
+    /* Reset transform */
     z-index: 100;
+    overflow-y: auto;
+    /* Allow scrolling if menu is tall */
   }
 
   .nav.active {
-    transform: translateY(0);
+    display: flex;
+    animation: fadeIn 0.3s ease-out;
   }
 
   .nav a {
@@ -545,6 +552,18 @@ textarea:focus {
     width: 100%;
     text-align: center;
     padding: 1rem;
+    border-bottom: 1px solid var(--bg-surface-alt);
+    /* Separators */
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 
   /* Toggle Animation */
