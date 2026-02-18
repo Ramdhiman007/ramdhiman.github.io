@@ -480,15 +480,84 @@ textarea:focus {
 /* --- Responsive --- */
 @media (max-width: 768px) {
   .header-inner {
-    flex-direction: column;
-    padding: 1rem 0;
+    flex-wrap: wrap;
+    padding: 0.75rem 0;
     height: auto;
-    gap: 1rem;
+    /* Allow expansion */
+    gap: 0;
+    /* Reset gap */
   }
 
-  .nav {
-    flex-wrap: wrap;
+  .logo {
+    z-index: 101;
+    /* Stay above menu */
+    flex-grow: 1;
+  }
+
+  /* Hamburger Toggle */
+  .mobile-toggle {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    gap: 4px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 101;
+    padding: 0;
+  }
+
+  .mobile-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: var(--transition-base);
+  }
+
+  /* Mobile Nav Overlay */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg-surface);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    transform: translateY(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+  }
+
+  .nav.active {
+    transform: translateY(0);
+  }
+
+  .nav a {
+    font-size: 1.25rem;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  /* Toggle Animation */
+  .mobile-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
   .hero h1 {

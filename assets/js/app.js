@@ -15,10 +15,45 @@ const App = {
     this.initTheme();
     this.initScrollAnimations();
     this.setupIntersectionObserver();
+    this.initMobileMenu();
 
     // Auto-init specific modules based on page content
     if (document.getElementById('videoMount')) VideoPlayer.init();
     if (document.querySelector('.captcha')) Captcha.initAll();
+  },
+
+  initMobileMenu() {
+    const headerInner = document.querySelector('.header-inner');
+    const nav = document.querySelector('.nav');
+
+    if (headerInner && nav) {
+      // Create Toggle Button
+      const toggle = document.createElement('button');
+      toggle.className = 'mobile-toggle';
+      toggle.ariaLabel = 'Toggle Menu';
+      toggle.innerHTML = '<span></span><span></span><span></span>';
+
+      // Insert before nav
+      headerInner.insertBefore(toggle, nav);
+
+      // Event Listener
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
+        toggle.setAttribute('aria-expanded', !expanded);
+        toggle.classList.toggle('active');
+        nav.classList.toggle('active');
+        document.body.style.overflow = !expanded ? 'hidden' : ''; // Prevent scrolling
+      });
+
+      // Close on link click
+      nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          toggle.classList.remove('active');
+          nav.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+    }
   },
 
   updateYear() {
