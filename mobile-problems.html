@@ -38,10 +38,12 @@
 
             <div
                 style="background: var(--bg-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-                <form class="search" id="searchForm"
-                    style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                    <input type="search" id="searchInput" placeholder="Search mobile issues (e.g. face id)..."
-                        aria-label="Search problems">
+                <form class="search search-grid" id="searchForm">
+                    <div class="search-wrapper">
+                        <input type="search" id="searchInput" placeholder="Search mobile issues (e.g. face id)..."
+                            aria-label="Search problems">
+                        <button type="submit" class="search-btn-inner">Search</button>
+                    </div>
 
                     <div class="select-wrapper">
                         <select id="category" aria-label="Category">

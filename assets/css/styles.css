@@ -432,6 +432,136 @@ textarea:focus {
   box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
 }
 
+/* --- Search Form Alignment --- */
+.search {
+  align-items: center;
+  /* Ensure grid items align vertically */
+}
+
+/* --- Search Form Grid Layout (Flexbox for Fluidity) --- */
+.search-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+/* Flex Grow Logic */
+.search-wrapper {
+  flex: 3 1 320px;
+  /* Takes most space, min-width 320px */
+}
+
+.select-wrapper {
+  flex: 1 1 160px;
+  /* Takes less space, min-width 160px */
+}
+
+/* Filter button shouldn't grow too much */
+.search-grid .btn {
+  flex: 0 0 auto;
+  min-width: 140px;
+}
+
+/* Ensure wrappers don't overflow */
+.search-wrapper,
+.select-wrapper {
+  min-width: 0;
+}
+
+/* Remove the specific grid media query as flex handles it */
+
+
+/* --- Search Wrapper (Input + Button) --- */
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 3.5rem;
+  /* Enforce wrapper height */
+}
+
+.search-wrapper input {
+  padding: 0.875rem 1.5rem;
+  /* Match select padding height */
+  padding-right: 8rem !important;
+  /* Space for large button */
+  margin-bottom: 0 !important;
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  height: 100%;
+  /* Fill wrapper */
+  line-height: normal;
+}
+
+.search-wrapper input:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.search-btn-inner {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: calc(3.5rem - 10px);
+  /* Fixed height relative to input */
+  background: var(--brand-gradient);
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 0 1.5rem;
+  /* Increased padding slightly */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-base);
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+}
+
+/* Ensure Selects Match Search Height in Filter Bar */
+.search select {
+  height: 3.5rem;
+  border-radius: 50px;
+  /* Match pill shape for consistency */
+  padding: 0 1.5rem;
+  appearance: none;
+  /* Remove default arrow to style if needed, but keeping simple for now */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 1.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+}
+
+.search .btn {
+  height: 3.5rem;
+  border-radius: 50px;
+  padding: 0 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn-inner:hover {
+  transform: translateY(calc(-50% - 1px));
+  /* Account for center offset */
+  filter: brightness(1.1);
+  color: white;
+  background: var(--brand-gradient);
+  /* Ensure gradient stays */
+}
+
+
 /* --- Footer --- */
 .site-footer {
   margin-top: 6rem;
@@ -542,6 +672,7 @@ textarea:focus {
   input[type="text"],
   input[type="email"],
   input[type="password"],
+  input[type="search"],
   select,
   textarea {
     font-size: 16px;
@@ -549,6 +680,19 @@ textarea:focus {
     padding: 1rem;
     /* Larger input areas */
     height: auto;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Force Search Form to Stack */
+  .search {
+    grid-template-columns: 1fr !important;
+    /* Override inline styles */
+    gap: 1.25rem;
+  }
+
+  .select-wrapper {
+    width: 100%;
   }
 
   /* Fix Stacking Context for Mobile Menu */
@@ -675,7 +819,7 @@ textarea:focus {
     font-size: 1.15rem;
   }
 
-  /* Mobile Search Fix */
+  /* Mobile Search Fix (Homepage) */
   .search-large {
     display: flex;
     flex-direction: column;
